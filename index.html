@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presupuesto Implantech</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body background="fondo.jpg">
+
+    <br>
+    <h1 class="titulo">Generador de Presupuesto</h1>
+    <h2>Implantech</h2>
+    <hr>
+    <br>
+    <div class="todo" id="">
+        <div class="">
+
+
+            <div class="container">
+                <form id="formulario-datos" class="formulario">
+
+                    <br>
+
+                    <label for="nombre-cliente" class="form-label">Nombre del Cliente:</label> <br>
+                    <input type="text" id="nombre-cliente" class="form-control" placeholder="ej: IOSFA" required>
+                    <br>
+
+                    <label for="cuit-cliente" class="form-label">Cuit:</label> <br>
+                    <input type="text" id="cuit-cliente" class="form-control" placeholder="ej: 30-12345466-2" required>
+
+                    <br>
+                    <p>IVA:</p>
+                    <select id="lista">
+                        <option value="option1">EXENTO</option>
+                        <option value="option2">RESPONSABLE INSCRIPTO</option>
+                        <option value="option3">CONSUMIDOR FINAL</option>
+                    </select>
+                    <br>
+                    <br>
+                    <br>
+                    <label for="afiliado" class="form-label">AFILIADO:</label> <br>
+                    <input type="text" id="afiliado" class="form-control" placeholder="ej: PEREZ, ANDRES" required>
+
+                    <label for="nroAfiliado" class="form-label">N° AFILIADO:</label> <br>
+                    <input type="text" id="nroAfiliado" class="form-control" placeholder="ej: 4574131" required>
+
+                    <label for="domicilio" class="form-label">DOMICILIO DE AFILIADO:</label> <br>
+                    <input type="text" id="domicilio" class="form-control" placeholder="ej: La Pampa 123" required>
+
+                    <!-- <button type="submit" onclick="guardarOpcion()">Agregar Datos</button>  -->
+
+
+                </form>
+
+                <form id="formulario" class="formulario">
+                    <label for="descripcion" class="form-label">Descripción:</label>
+                    <input type="text" id="descripcion" name="descripcion" class="form-control"
+                        placeholder="ej: Silla Ortopedica">
+                    <br>
+                    <label for="cantidad" class="form-label">Cantidad:</label>
+                    <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="ej: 5">
+                    <br>
+                    <label for="precioUnitario" class="form-label">Precio Unitario:</label>
+                    <input type="number" id="precioUnitario" name="precioUnitario" class="form-control"
+                        placeholder="ej: 500">
+                    <br>
+                    <button type="button" id="agregar" class="btn btn-success">Agregar Linea</button>
+
+
+                </form>
+
+
+                <button id="eliminar" class="btn btn-danger">Eliminar ultima Linea</button>
+            </div>
+        </div>
+        <br>
+        <div>
+            <div id="contentToConvert" class="container-imp fondodiv" style="background-image: url(/fondo7.jpg);;">
+                <div class="top">
+                    <div>
+                        <img src="logo.png" alt="Logo de la Empresa" class="logo">
+                    </div>
+                    <div class="hs">
+                        <div class="der">
+                            <h2>Presupuesto N° </h2>
+                            <h2 id="count"></h2>
+                        </div>
+                        <h3 class="">Implantech</h3>
+                    </div>
+
+
+                </div>
+                <hr>
+                <div class="datos-propios">
+                    <div class="">
+                        <p>ALSINA 44 - SAN RAFAEL, MENDOZA - CP 5600</p>
+                        <p>CEL: 2604 121568</p>
+                        <p>ggsaludintegral@gmail.com</p>
+                        <p>IVA RESPONSABLE INSCRIPTO</p>
+
+                    </div>
+
+                    <div class="">
+                        <p>CUIT 30-71734160-7</p>
+                        <p>IIBB 0901510</p>
+                        <p>N° GLN: 7798419410000</p>
+                    </div>
+                </div>
+
+                <div class="datos">
+                    <div id="" class="datos-cliente">
+                        <p>SR/SRES/: <span id="vista-nombre-cliente"></span></p>
+                        <p>Cuit: <span id="vista-cuit-cliente"></span></p>
+                        <p>IVA: <span id="vista-iva"></span></p>
+                        <p>LOCALIDAD: San Rafael, Mendoza</p>
+                        <p>MONEDA: $</p>
+                        <br>
+                    </div>
+
+                    <div class="datos-cliente">
+                        <p id="fecha-actual">FECHA:</p>
+                        <p>AFILIADO: <span id="vista-afiliado"></span></p>
+                        <p>N° AFILIADO: <span id="vista-nroAfiliado"></span></p>
+                        <p>DOMICILIO: <span id="vista-domicilio"></span></p>
+                    </div>
+                </div>
+
+                <div class="tabla">
+                    <table id="tabla">
+                        <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th>Cantidad</th>
+                                <th>Precio unitario</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="total">
+                    <p class="letra">Total: <span id="total"></span></p>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="botones">
+        <button id="savePdf" class="btnfos btnfos-3">Guardar PDF</button>
+        <button id="nuevo" class="btnfos btnfos-4">Nuevo</button>
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
