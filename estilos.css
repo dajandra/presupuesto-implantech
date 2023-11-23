@@ -61,7 +61,6 @@
 
 body {
     font-family: Arial, sans-serif;
-
 }
 
 form {
@@ -126,6 +125,13 @@ img {
     /* Posición en la parte izquierda de la página */
 }
 
+P {
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
+}
 
 .datos-cliente {
     float: left;
