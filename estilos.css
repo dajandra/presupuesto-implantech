@@ -26,9 +26,11 @@
 }
 
 .botones {
+    position: absolute;
     align-items: center;
-    display: flex;
-    justify-content: center;
+    top: 200px;
+    display: block;
+    margin-left: 600px;
 }
 
 
@@ -58,7 +60,6 @@
 
 
 
-
 body {
     font-family: Arial, sans-serif;
 }
@@ -69,6 +70,7 @@ form {
 
 input {
     margin-bottom: 10px;
+    width: 30px;
 }
 
 table {
@@ -106,16 +108,17 @@ h2 {
 }
 
 h3 {
-    font-size: 20px;
+    font-size: 15px;
     font-style: italic;
+    font-weight: bold;
 
 }
 
 img {
     margin-left: 20px;
-    width: 11em;
+    width: 7em;
     /* Define el ancho del logotipo */
-    height: 5em;
+    height: 4em;
     /* Define la altura del logotipo */
     position: absolute;
     /* Permite un posicionamiento absoluto */
@@ -133,15 +136,23 @@ label {
     font-weight: bold;
 }
 
+head {
+    padding: 0%;
+    margin: 0%;
+}
+
 .datos-cliente {
     float: left;
     text-align: left;
-    font-size: 15px;
+    font-size: 13px;
     width: 700px;
     font-weight: bold;
     text-align: left;
 }
 
+.tablaCuerpo {
+    display: flex;
+}
 
 
 .top {
@@ -178,6 +189,17 @@ label {
 }
 
 
+.hojas {
+    position: absolute;
+    right: 30px;
+    /* Resto de estilos de la clase hojas */
+}
+
+.hojas2 {
+    margin-right: 10px;
+}
+
+
 .container-imp {
     margin: auto;
     width: 210mm;
@@ -187,6 +209,8 @@ label {
     border: 2px solid #006100;
 
 }
+
+
 
 .der {
     display: flex;
@@ -199,13 +223,13 @@ label {
 }
 
 .datos-propios {
-    border: 2px solid #000000;
-    font-size: 15px;
+    border: 1px solid #000000;
+    font-size: 13px;
     margin: 15px;
     display: flex;
     justify-content: space-around;
     font-weight: bold;
-    text-align: center;
+    text-align: left;
     padding: 10px;
 }
 
@@ -237,18 +261,48 @@ label {
 
 .formulario {
     width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #99dbf5;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
 }
+
+.formulario label {
+    display: block;
+    margin-bottom: 5px;
+   }
+   
+   .formulario input[type="text"],
+   .formulario input[type="email"],
+   .formulario textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 14px;
+   }
+   
+   .formulario input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+   }
+   
+   .formulario input[type="submit"]:hover {
+    background-color: #45a049;
+   }
+
 
 .datos {
     display: flex;
     margin-left: 30px;
-
-}
-
-
-.todo {
-    display: flex;
-    justify-content: center;
 
 }
 
@@ -268,3 +322,60 @@ label {
 
     background-repeat: no-repeat;
 }
+
+.item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item1 {
+    padding: 10px;
+    margin: 10px;
+}
+
+.item2 {
+    padding: 10px;
+    margin: 10px;
+}
+
+.items {
+    width: 50px ;
+}
+
+
+.btnel {
+    width: 1px;
+    height: 10px;
+    background-color: #ffffff;
+    border: 0.5px solid rgba(0, 0, 0, 0.837);
+}
+
+.btnel-no-border {
+    border: none;
+}
+
+
+.desc {
+    word-wrap: break-word;
+}
+
+
+.principal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+}
+
+.todo {
+    display: flex;
+    margin-top: 155px;
+}
+
+.panel {
+    position: fixed;
+    top: 90px;
+}
+

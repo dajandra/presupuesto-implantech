@@ -1,32 +1,13 @@
-document.getElementById('agregar').addEventListener('click', function () {
-    var descripcion = document.getElementById('descripcion').value;
-    var cantidad = document.getElementById('cantidad').value;
-    var precioUnitario = document.getElementById('precioUnitario').value;
-    var subtotal = cantidad * precioUnitario;
-
-    var fila = document.createElement('tr');
-
-    var celdaDescripcion = document.createElement('td');
-    var celdaCantidad = document.createElement('td');
-    var celdaPrecioUnitario = document.createElement('td');
-    var celdaSubtotal = document.createElement('td');
-
-    celdaDescripcion.textContent = descripcion;
-    celdaCantidad.textContent = cantidad;
-    celdaPrecioUnitario.textContent = "$" + precioUnitario;
-    celdaSubtotal.textContent = "$" + subtotal;
-
-    fila.appendChild(celdaDescripcion);
-    fila.appendChild(celdaCantidad);
-    fila.appendChild(celdaPrecioUnitario);
-    fila.appendChild(celdaSubtotal);
-
-    document.getElementById('tabla').getElementsByTagName('tbody')[0].appendChild(fila);
+document.getElementById('agregarDatos').addEventListener('click', function () {
 
     var afiliado = document.getElementById("afiliado").value;
     var nroAfiliado = document.getElementById("nroAfiliado").value;
     var domicilio = document.getElementById("domicilio").value;
-    
+    var medico = document.getElementById("medico").value;
+
+
+    document.getElementById("vista-medico").textContent = medico;
+
 
     document.getElementById("vista-afiliado").textContent = afiliado;
     document.getElementById("vista-nroAfiliado").textContent = nroAfiliado;
@@ -38,65 +19,192 @@ document.getElementById('agregar').addEventListener('click', function () {
     opcionSeleccionada = listaOpciones.options[listaOpciones.selectedIndex].text;
     document.getElementById("vista-iva").innerHTML = opcionSeleccionada;
 
-    
+
     var clientName = document.getElementById("nombre-cliente").value;
     var cuitCliente = document.getElementById("cuit-cliente").value;
+    var observaciones = document.getElementById("Observaciones").value;
 
 
     document.getElementById("vista-nombre-cliente").textContent = clientName;
     document.getElementById("vista-cuit-cliente").textContent = cuitCliente;
+    document.getElementById("vista-observaciones").textContent = observaciones;
 
-
-    document.getElementById('formulario').reset();
-
-
-    document.getElementById('total').textContent = '$' + calcularTotal();
 
 });
 
+let contadorTablas = 1;
 
-document.getElementById('eliminar').addEventListener('click', function () {
-    var tabla = document.getElementById('tabla');
-    var ultimaFila = tabla.rows.length - 1;
 
-    if (ultimaFila > 0) {
-        tabla.deleteRow(ultimaFila);
-    } else {
-        alert('No hay líneas para eliminar');
+function agregarHoja() {
+
+
+    let todoPrepOriginal = document.getElementById("todoPrep");
+    let todoPrepDuplicado = todoPrepOriginal.cloneNode(true);
+    todoPrepDuplicado.id = 'todoPrep' + contadorTablas; // Cambiar el id del div duplicado
+
+    let contenedor = document.getElementById('todo');
+    contenedor.appendChild(todoPrepDuplicado); // Agregar el div duplicado al contenedor
+
+    // Obtener la tabla dentro de 'todoPrepDuplicado'
+    let tabla = todoPrepDuplicado.getElementsByTagName('table')[0];
+
+    // Cambiar el id de la tabla
+    tabla.id = 'mostrarDatos' + contadorTablas;
+
+    while (tabla.rows.length > 1) { // Empezamos desde la segunda fila (índice 1)
+        tabla.deleteRow(1);
     }
 
-    document.getElementById('total').textContent = '$' + calcularTotal();
-});
-
-function calcularTotal() {
-    var tabla = document.getElementById('tabla');
-    var filas = tabla.getElementsByTagName('tr');
-    var total = 0;
-
-    for (var i = 1; i < filas.length; i++) {
-        var subtotal = parseFloat(filas[i].getElementsByTagName('td')[3].textContent.slice(1));
-        total += subtotal;
-    }
-
-    return total;
+    contadorTablas++; // Incrementar el contador de tablas
 }
+
+
+
+
+let contador = 0;
+
+function agregarItems() {
+    contador++;
+
+    if (contador < 6) {
+        agregar1();
+    } else if (contador == 6) {
+        agregarHoja();
+    } else if (contador > 6 && contador < 12) {
+        agregar2();
+    }
+
+    // Mostrar alerta si se ha alcanzado el límite de tablas
+    if (contador > 12) {
+        alert('No se pueden agregar más tablas.');
+    }
+
+}
+
+document.getElementById('agregarItems').addEventListener('click', agregarItems);
+
+
+function agregar1() {
+    let descripcion = document.getElementById('descripcion').value;
+    let cantidad = document.getElementById('cantidad').value;
+    let precioUnitario = document.getElementById('precioUnitario').value;
+    var subtotal = cantidad * precioUnitario;
+
+    let fila = document.createElement('tr');
+    fila.innerHTML = `
+    <tbody>
+            <td><p>${descripcion}</p></td>
+            <td><p>${cantidad}</p></td>
+            <td><p>${precioUnitario}</p></td>
+            <td><p>${subtotal}</p></td>
+    </tbody>
+    <button onclick="eliminar(this)" class="btnel"></button>
+    `;
+
+    document.getElementById('mostrarDatos').appendChild(fila);
+
+
+}
+
+function agregar2() {
+    let descripcion = document.getElementById('descripcion').value;
+    let cantidad = document.getElementById('cantidad').value;
+    let precioUnitario = document.getElementById('precioUnitario').value;
+    var subtotal = cantidad * precioUnitario;
+
+    let fila = document.createElement('tr');
+    fila.innerHTML = `
+    <tbody>
+            <td><p>${descripcion}</p></td>
+            <td><p>${cantidad}</p></td>
+            <td><p>${precioUnitario}</p></td>
+            <td><p>${subtotal}</p></td>
+    </tbody>
+    <button onclick="eliminar(this)" class="btnel"></button>
+    `;
+
+    document.getElementById('mostrarDatos1').appendChild(fila);
+
+
+}
+
+
+
+
+function eliminarCeldasDeTabla(tabla) {
+    for (let i = tabla.rows.length - 1; i > 0; i--) {
+        tabla.deleteRow(i);
+    }
+}
+
+function eliminar(elemento) {
+    elemento.parentElement.remove();
+    contador--; // Restar 1 al contador de celdas
+    calcularTotal();
+}
+
 
 
 document.getElementById('savePdf').addEventListener('click', function () {
 
-    var element = document.getElementById('contentToConvert');
-    let incrementNumber = incrementAndSave();
+    var incrementNumber = incrementAndSave();
+    var numberDiv = document.getElementById('count');
+    var countForPDF = localStorage.getItem('countForPDF');
+    numberDiv.textContent = incrementNumber;
+
+    var elements = window.document.querySelectorAll('#todoPrep, #todoPrep1');
     var opt = {
         margin: 0,
-        filename: 'PRESUPUESTO IMPLANTECH' + incrementNumber + '.pdf',
+        filename: 'PRESUPUESTO IMPLANTECH ' + countForPDF + '.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
     };
-    html2pdf().from(element).set(opt).save();
+
+    elements.forEach(function (element) {
+        html2pdf().from(element).set(opt).save();
+    });
 
 
 });
+
+
+
+
+function calcularTotal() {
+    var table = document.getElementById('mostrarDatos');
+    var sum = 0;
+
+    for (var i = 1, row; row = table.rows[i]; i++) {
+        var cuartaColumna = row.cells[3].textContent;
+
+        if (cuartaColumna) {
+            sum += parseFloat(cuartaColumna);
+        }
+    }
+
+    // Calcula el porcentaje y agrégalo al total
+    var valor = document.getElementById('porcIVA');
+    var porcentaje = sum * valor.value / 100; // Ajusta este valor al porcentaje que deseas sumar
+    var total = sum + porcentaje;
+    document.getElementById('total').textContent = total.toFixed(2); // Convierte el total a una cadena con dos decimales
+}
+
+// Asegúrate de que este código se ejecute después de que la tabla esté creada
+var table = document.getElementById('mostrarDatos');
+
+table.addEventListener('DOMNodeInserted', function (event) {
+    if (event.target.tagName === 'TR') {
+        calcularTotal();
+    }
+});
+
+table.addEventListener('DOMNodeRemoved', function (event) {
+    if (event.target.tagName === 'TR') {
+        calcularTotal();
+    }
+});
+
 
 
 function incrementAndSave() {
@@ -118,6 +226,10 @@ function incrementAndSave() {
 
     var newCount = ("000" + leftPart).slice(-3) + '-' + ("000" + rightPart).slice(-3);
     localStorage.setItem('incrementNumber', newCount);
+
+    // Agregar esta línea para guardar el número de incremento actual en el archivo PDF
+    localStorage.setItem('countForPDF', count);
+
     return newCount;
 };
 
@@ -127,24 +239,13 @@ document.addEventListener('DOMContentLoaded', function () {
     numberDiv.textContent = incrementNumber;
 
     // eliminar el item 'incrementNumber' de localStorage
-    // localStorage.removeItem('incrementNumber');
+    //localStorage.removeItem('incrementNumber');
 
     // llamar a la función incrementAndSave para comenzar a contar desde 001-346
     //incrementAndSave();
 });
 
-
 document.getElementById('nuevo').addEventListener('click', function () {
     location.reload()
 
 });
-
-
-window.onload = function () {
-    var fecha = new Date();
-    var dia = fecha.getDate();
-    var mes = fecha.getMonth() + 1;
-    var anio = fecha.getFullYear();
-
-    document.getElementById("fecha-actual").innerHTML = "FECHA: " + dia + "/" + mes + "/" + anio;
-}
