@@ -227,6 +227,7 @@ head {
     margin: auto;
     display: flex;
     width: 700px;
+    font-size: 13px;
 }
 
 @page {
@@ -379,4 +380,5 @@ head {
     margin-left: 0;
     align-items: start;
     text-align: left;
+    font-size: 15px;
 }
