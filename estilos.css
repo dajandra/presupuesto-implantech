@@ -340,6 +340,7 @@ head {
 .todo {
     align-items: end;
     width: 70%;
+    margin-left: 10%;
 }
 
 .panel {
