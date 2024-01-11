@@ -32,6 +32,15 @@ document.getElementById('agregarDatos').addEventListener('click', function () {
 
 });
 
+
+window.onload = function () {
+    var fecha = new Date();
+    var dia = fecha.getDate();
+    var mes = fecha.getMonth() + 1;
+    var anio = fecha.getFullYear();
+
+    document.getElementById("fecha-actual").innerHTML = "FECHA: " + dia + "/" + mes + "/" + anio;
+}
 let contadorTablas = 1;
 
 
