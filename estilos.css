@@ -374,3 +374,9 @@ head {
     display: inline-block;
     cursor: pointer;
 }
+
+.obs {
+    margin-left: 0;
+    align-items: start;
+    text-align: left;
+}
