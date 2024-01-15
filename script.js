@@ -30,17 +30,9 @@ document.getElementById('agregarDatos').addEventListener('click', function () {
     document.getElementById("vista-observaciones").textContent = observaciones;
 
 
+    calcularTotal();
 });
 
-
-window.onload = function () {
-    var fecha = new Date();
-    var dia = fecha.getDate();
-    var mes = fecha.getMonth() + 1;
-    var anio = fecha.getFullYear();
-
-    document.getElementById("fecha-actual").innerHTML = "FECHA: " + dia + "/" + mes + "/" + anio;
-}
 let contadorTablas = 1;
 
 
@@ -65,6 +57,7 @@ function agregarHoja() {
     }
 
     contadorTablas++; // Incrementar el contador de tablas
+    calcularTotal();
 }
 
 
@@ -112,6 +105,8 @@ function agregar1() {
 
     document.getElementById('mostrarDatos').appendChild(fila);
 
+    calcularTotal();
+
 
 }
 
@@ -134,10 +129,19 @@ function agregar2() {
 
     document.getElementById('mostrarDatos1').appendChild(fila);
 
+    calcularTotal();
+
 
 }
 
+window.onload = function () {
+    var fecha = new Date();
+    var dia = fecha.getDate();
+    var mes = fecha.getMonth() + 1;
+    var anio = fecha.getFullYear();
 
+    document.getElementById("fecha-actual").innerHTML = "FECHA: " + dia + "/" + mes + "/" + anio;
+}
 
 
 function eliminarCeldasDeTabla(tabla) {
@@ -180,25 +184,36 @@ document.getElementById('savePdf').addEventListener('click', function () {
 
 
 
+
 function calcularTotal() {
-    var table = document.getElementById('mostrarDatos');
+    var tabla1 = document.getElementById('mostrarDatos');
+    var tabla2 = document.getElementById('mostrarDatos1');
     var sum = 0;
-
-    for (var i = 1, row; row = table.rows[i]; i++) {
-        var cuartaColumna = row.cells[3].textContent;
-
-        if (cuartaColumna) {
-            sum += parseFloat(cuartaColumna);
+  
+    if (tabla1 !== null) {
+      for (var i = 0; i < tabla1.rows.length; i++) {
+        var value = tabla1.rows[i].cells[tabla1.rows[i].cells.length - 1].innerText;
+        if (!isNaN(value)) {
+          sum += parseFloat(value);
         }
+      }
     }
-
+  
+    if (tabla2 !== null) {
+      for (var i = 0; i < tabla2.rows.length; i++) {
+        var value = tabla2.rows[i].cells[tabla2.rows[i].cells.length - 1].innerText;
+        if (!isNaN(value)) {
+          sum += parseFloat(value);
+        }
+      }
+    }
+  
     // Calcula el porcentaje y agrégalo al total
     var valor = document.getElementById('porcIVA');
     var porcentaje = sum * valor.value / 100; // Ajusta este valor al porcentaje que deseas sumar
     var total = sum + porcentaje;
     document.getElementById('total').textContent = total.toFixed(2); // Convierte el total a una cadena con dos decimales
-}
-
+  }
 // Asegúrate de que este código se ejecute después de que la tabla esté creada
 var table = document.getElementById('mostrarDatos');
 
