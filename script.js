@@ -37,8 +37,6 @@ let contadorTablas = 1;
 
 
 function agregarHoja() {
-
-
     let todoPrepOriginal = document.getElementById("todoPrep");
     let todoPrepDuplicado = todoPrepOriginal.cloneNode(true);
     todoPrepDuplicado.id = 'todoPrep' + contadorTablas; // Cambiar el id del div duplicado
@@ -51,6 +49,8 @@ function agregarHoja() {
 
     // Cambiar el id de la tabla
     tabla.id = 'mostrarDatos' + contadorTablas;
+
+    document.getElementById("total").id = "total1";
 
     while (tabla.rows.length > 1) { // Empezamos desde la segunda fila (índice 1)
         tabla.deleteRow(1);
@@ -76,6 +76,7 @@ function agregarItems() {
         agregar2();
     }
 
+    calcularTotal();
     // Mostrar alerta si se ha alcanzado el límite de tablas
     if (contador > 12) {
         alert('No se pueden agregar más tablas.');
@@ -212,8 +213,14 @@ function calcularTotal() {
     var valor = document.getElementById('porcIVA');
     var porcentaje = sum * valor.value / 100; // Ajusta este valor al porcentaje que deseas sumar
     var total = sum + porcentaje;
-    document.getElementById('total').textContent = total.toFixed(2); // Convierte el total a una cadena con dos decimales
-  }
+    // Actualiza el valor en ambos elementos con id "total" y "total1"
+    document.getElementById('total').textContent = total.toFixed(2);
+    document.getElementById('total1').textContent = total.toFixed(2);
+
+    // Convierte el total a una cadena con dos decimales
+    document.getElementById('total').textContent = total.toFixed(2);
+    document.getElementById('total1').textContent = document.getElementById('total').textContent;
+}
 // Asegúrate de que este código se ejecute después de que la tabla esté creada
 var table = document.getElementById('mostrarDatos');
 
