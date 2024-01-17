@@ -190,7 +190,7 @@ function calcularTotal() {
     var tabla1 = document.getElementById('mostrarDatos');
     var tabla2 = document.getElementById('mostrarDatos1');
     var sum = 0;
-  
+
     if (tabla1 !== null) {
       for (var i = 0; i < tabla1.rows.length; i++) {
         var value = tabla1.rows[i].cells[tabla1.rows[i].cells.length - 1].innerText;
@@ -199,7 +199,7 @@ function calcularTotal() {
         }
       }
     }
-  
+
     if (tabla2 !== null) {
       for (var i = 0; i < tabla2.rows.length; i++) {
         var value = tabla2.rows[i].cells[tabla2.rows[i].cells.length - 1].innerText;
@@ -208,17 +208,15 @@ function calcularTotal() {
         }
       }
     }
-  
-    // Calcula el porcentaje y agrégalo al total
+
     var valor = document.getElementById('porcIVA');
     var porcentaje = sum * valor.value / 100; // Ajusta este valor al porcentaje que deseas sumar
-    var total = sum + porcentaje;
-    // Actualiza el valor en ambos elementos con id "total" y "total1"
-    document.getElementById('total').textContent = total.toFixed(2);
-    document.getElementById('total1').textContent = total.toFixed(2);
+    var total = (sum + porcentaje).toLocaleString('es-ES'); // Agregar el formato de puntos para separar grupos
 
-    // Convierte el total a una cadena con dos decimales
-    document.getElementById('total').textContent = total.toFixed(2);
+    document.getElementById('total').textContent = total;
+    document.getElementById('total1').textContent = total;
+
+    document.getElementById('total').textContent = total;
     document.getElementById('total1').textContent = document.getElementById('total').textContent;
 }
 // Asegúrate de que este código se ejecute después de que la tabla esté creada
